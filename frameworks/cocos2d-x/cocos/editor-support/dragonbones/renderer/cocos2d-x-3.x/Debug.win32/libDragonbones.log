@@ -1,5 +1,15 @@
-﻿  lua_dragonbone_CCArmatureDisplay_extend.cpp
+﻿  Animation.cpp
+  AnimationState.cpp
+  Armature.cpp
+  Slot.cpp
+..\..\..\armature\Slot.cpp(215): warning C4018: “<”: 有符号/无符号不匹配
+..\..\..\armature\Slot.cpp(216): warning C4018: “<”: 有符号/无符号不匹配
+..\..\..\animation\AnimationState.cpp(312): warning C4018: “<”: 有符号/无符号不匹配
+  BaseFactory.cpp
+  lua_dragonbone_CCArmatureDisplay_extend.cpp
   CCArmatureDisplay.cpp
   CCFactory.cpp
+..\..\..\factories\BaseFactory.cpp(201): warning C4018: “<”: 有符号/无符号不匹配
   CCSlot.cpp
+  CCTextureData.cpp
   libDragonbones.vcxproj -> C:\Users\pro1\Desktop\DieToT\frameworks\runtime-src\proj.win32\Debug.win32\libDragonbones.lib

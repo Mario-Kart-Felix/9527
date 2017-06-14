@@ -21,14 +21,21 @@ local action = nil
 
 function CoolHairBoom:ctor()
 	factory_ = db.CCFactory:getInstance()
-	dbdata = factory_:loadDragonBonesData("CoolHair/TestDragonBone_ske.json")
-	texdata = factory_:loadTextureAtlasData("CoolHair/TestDragonBone_tex.json")
+	-- dbdata = factory_:loadDragonBonesData("CoolHair/TestDragonBone_ske.json")
+	-- texdata = factory_:loadTextureAtlasData("CoolHair/TestDragonBone_tex.json")
+	dbdata = factory_:loadDragonBonesData("DaKongYi/dakongyi_zhanli_ske.json")
+	texdata = factory_:loadTextureAtlasData("DaKongYi/dakongyi_zhanli_tex.json")
 	dbnames = dbdata:getArmatureNames()
-	myplay = factory_:buildArmatureDisplay(dbnames[2])
+	myplay = factory_:buildArmatureDisplay(dbnames[1])
+
+
+	worldCl = db.WorldClock:getInstance()
+	worldCl:add(myplay:getArmature())
+	worldCl:advanceTime(0.0001)
 
 	self:addChild(myplay)
 	myplay:move(cc.p(size.width/2,size.height/2))
-	myplay:setScale(0.2)
+	myplay:setScale(0.7)
 
 	myplay:bindDragonEventListener(handler(self,self.MyEvent))
 	-- display:addDragonEventType("start")
@@ -105,7 +112,10 @@ function CoolHairBoom:onTouch(event,touch)
 	print("play")
 	-- print(display:getAnimation():getState("cool"))
 	if(myplay ~= nil) then
-		myplay:getAnimation():gotoAndPlayByTime("cool",1,1)
+		-- myplay:getAnimation():gotoAndPlayByTime("zhanli",0,5)
+		print(myplay:getAnimation():getTimeScale())
+		myplay:getAnimation():setTimeScale(5)
+		myplay:getAnimation():play(myplay:getAnimation():getLastAnimationName(),5)
 	else
 		-- local view = self:createView( "ChangeScene" )  
 		local nextSc = require "app/views/ChangeScene"
@@ -121,8 +131,5 @@ function CoolHairBoom:onTouch(event,touch)
 	-- display:getAnimation():gotoAndStopByProgress("cool",0.5)
 	-- worldCl = db.WorldClock:getInstance()
 end
-
-
-
 
 return CoolHairBoom

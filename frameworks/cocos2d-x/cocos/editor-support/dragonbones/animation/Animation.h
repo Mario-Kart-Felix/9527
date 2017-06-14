@@ -88,6 +88,16 @@ public:
         return _lastAnimationState;
     }
 
+	inline void setTimeScale(float tt)
+	{
+		timeScale = tt;
+	}
+
+	inline float getTimeScale() const
+	{
+		return timeScale;
+	}
+
     inline const std::map<std::string, AnimationData*>& getAnimations() const
     {
         return _animations;

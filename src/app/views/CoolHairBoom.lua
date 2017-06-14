@@ -21,21 +21,21 @@ local action = nil
 
 function CoolHairBoom:ctor()
 	factory_ = db.CCFactory:getInstance()
-	-- dbdata = factory_:loadDragonBonesData("CoolHair/TestDragonBone_ske.json")
-	-- texdata = factory_:loadTextureAtlasData("CoolHair/TestDragonBone_tex.json")
-	dbdata = factory_:loadDragonBonesData("DaKongYi/dakongyi_zhanli_ske.json")
-	texdata = factory_:loadTextureAtlasData("DaKongYi/dakongyi_zhanli_tex.json")
+	dbdata = factory_:loadDragonBonesData("CoolHair/TestDragonBone_ske.json")
+	texdata = factory_:loadTextureAtlasData("CoolHair/TestDragonBone_tex.json")
+	-- dbdata = factory_:loadDragonBonesData("DaKongYi/dakongyi_zhanli_ske.json")
+	-- texdata = factory_:loadTextureAtlasData("DaKongYi/dakongyi_zhanli_tex.json")
 	dbnames = dbdata:getArmatureNames()
-	myplay = factory_:buildArmatureDisplay(dbnames[1])
+	myplay = factory_:buildArmatureDisplay(dbnames[2])
 
 
-	worldCl = db.WorldClock:getInstance()
-	worldCl:add(myplay:getArmature())
-	worldCl:advanceTime(0.0001)
+	-- worldCl = db.WorldClock:getInstance()
+	-- worldCl:add(myplay:getArmature())
+	-- worldCl:advanceTime(0.0001)
 
 	self:addChild(myplay)
 	myplay:move(cc.p(size.width/2,size.height/2))
-	myplay:setScale(0.7)
+	myplay:setScale(0.3)
 
 	myplay:bindDragonEventListener(handler(self,self.MyEvent))
 	-- display:addDragonEventType("start")
@@ -108,14 +108,31 @@ function CoolHairBoom:MyEvent(typename,name,eventobj,obj)
 end
 
 
+local animationName = nil
+local currentIndex = nil
+
 function CoolHairBoom:onTouch(event,touch)
 	print("play")
+	if(animationName == nil) then
+		animationName = myplay:getAnimation():getAnimationNames()
+	end
 	-- print(display:getAnimation():getState("cool"))
 	if(myplay ~= nil) then
 		-- myplay:getAnimation():gotoAndPlayByTime("zhanli",0,5)
-		print(myplay:getAnimation():getTimeScale())
-		myplay:getAnimation():setTimeScale(5)
-		myplay:getAnimation():play(myplay:getAnimation():getLastAnimationName(),5)
+		-- print(myplay:getAnimation():getTimeScale())
+
+		local isPlaying = myplay:getAnimation():isPlaying()
+		local bd = table.getn(animationName)
+		math.random(1)
+		currentIndex = math.random(2)
+		if(isPlaying) then
+			print("fadeIn")
+			myplay:getAnimation():fadeIn(animationName[currentIndex],2)
+		end
+		myplay:getAnimation():play(animationName[currentIndex],1)
+		-- myplay:getAnimation():setTimeScale(5)
+		-- myplay:getAnimation():play(myplay:getAnimation():getLastAnimationName(),5)
+
 	else
 		-- local view = self:createView( "ChangeScene" )  
 		local nextSc = require "app/views/ChangeScene"
